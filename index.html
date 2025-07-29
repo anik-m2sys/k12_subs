@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shift Invitation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.5em;
+    }
+
+    .info p {
+      margin: 6px 0;
+      font-size: 0.95em;
+      text-align: left;
+    }
+
+    .info p strong {
+      font-weight: 600;
+    }
+
+    .note {
+      background-color: #e6f4ff;
+      border-left: 4px solid #2196f3;
+      padding: 10px 12px;
+      margin: 16px 0;
+      font-size: 0.9em;
+      border-radius: 4px;
+      text-align: left;
+    }
+
+    .accept-button {
+      display: block;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 12px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .accept-button:hover {
+      background-color: #218838;
+    }
+
+    .thank-you {
+      font-size: 1.2em;
+      color: #333;
+      margin-top: 20px;
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h2>You're Invited to Cover a Shift</h2>
+    <div class="info">
+      <p><strong>School:</strong> Lincoln Elementary</p>
+      <p><strong>Date:</strong> July 30, 2025</p>
+      <p><strong>Time:</strong> 8:00 AM – 5:00 PM</p>
+      <p><strong>Subject:</strong> 4th Grade Math</p>
+      <p><strong>Teacher:</strong> Mrs. Thompson</p>
+    </div>
+    <div class="note">
+      <strong>Notes:</strong> Please arrive 15 minutes early. Materials will be prepared in the teacher’s desk. Contact the front office upon arrival.
+    </div>
+    <button class="accept-button" onclick="acceptShift()">Accept This Shift</button>
+    <div class="thank-you" id="thankYou">Thank you! Your response has been recorded.</div>
+  </div>
+
+  <script>
+    function acceptShift() {
+	
+      const currentTime = new Date().toISOString();
+      fetch("https://m2sys-api.cloudapper.com/api/v3/hook?identifier=7cabff6ab7dc446293bff3d1f5df7236", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: "test"
+        })
+      }).finally(() => {
+        document.querySelector(".accept-button").style.display = "none";
+        document.getElementById("thankYou").style.display = "block";
+      });
+    }
+  </script>
+</body>
+</html>
